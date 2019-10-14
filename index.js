@@ -2,7 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const bcrypt = require('bcryptjs');
 
-const db = require('./database/dbConfig.js');
+// const db = require('./database/dbConfig.js');
 const Users = require('./users-model.js');
 
 const server = express();
@@ -29,7 +29,7 @@ function protected(req, res, next) {
         Users.findBy({ username })
             .first()
             .then(user => {
-                if (user && bycrypt.compareSync(password, user.password)) {
+                if (user && bcrypt.compareSync(password, user.password)) {
                     next();
                 } else {
                     res.status(401).json({ message: 'You shall not pass!' });
